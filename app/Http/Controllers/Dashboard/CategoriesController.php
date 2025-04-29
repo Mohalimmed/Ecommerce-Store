@@ -22,7 +22,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        $parents = Category::all();
+        return view('dashboard.categories.create', compact('parents'));
     }
 
     /**
@@ -30,7 +31,11 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge([
+            'slug' => str($request->name)->slug(),
+        ]);
+        $categories = Category::create($request->all());
+        return redirect()->route('dashboard.categories.index')->with('success', 'Category created successfully');
     }
 
     /**
@@ -46,7 +51,14 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $parents = Category::where('id', '<>', $id)
+            ->where(function ($query) use ($id) {
+                $query->whereNull('parent_id')
+                    ->orWhere('parent_id', '<>', $id);
+            }) // Exclude the current editing category
+            ->get();
+        return view('dashboard.categories.edit', compact('category', 'parents'));
     }
 
     /**
@@ -54,7 +66,9 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+        return redirect()->route('dashboard.categories.index')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -62,6 +76,7 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Category::destroy($id);
+        return redirect()->route('dashboard.categories.index')->with('success', 'Category deleted successfully');
     }
 }

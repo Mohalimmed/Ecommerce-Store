@@ -4,15 +4,26 @@
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item"><a href="#">Categories</a></li>
+
 @endsection
 @section('content')
     <!--begin::App Content-->
+
     <div class="app-content">
+
         <div class="container-fluid">
+
+            <div class="mb-4">
+                <a href="{{ route('dashboard.categories.create') }}" class="btn btn-outline-primary">create</a>
+            </div>
+            @if (session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <table class="table table-striped table-bordered table-hover" id="categories-table">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Parent</th>
@@ -23,14 +34,14 @@
                 <tbody>
                     @forelse ($categories as $category)
                         <tr>
-                            <td></td>
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->parent_id }}</td>
                             <td>{{ $category->created_at }}</td>
                             <td class="text-center">
-                                <a href="{{ route('dashboard.categories.edit', $category) }}" class="btn btn-primary">Edit</a>
-                                <form action="{{ route('dashboard.categories.destroy', $category) }}" method="POST"
+                                <a href="{{ route('dashboard.categories.edit', $category->id) }}"
+                                    class="btn btn-primary">Edit</a>
+                                <form action="{{ route('dashboard.categories.destroy', $category->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
