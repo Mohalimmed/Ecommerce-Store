@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Rules\Filter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,7 +38,7 @@ class CategoriesController extends Controller
                 'name' => 'required|min:3|max:255',
                 'parent_id' => 'nullable|int|exists:categories,id',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'status' => 'required|in:active,inactive',
+                'status' => 'required|in:active,archived',
             ]
         );
         $request->merge([
@@ -79,19 +80,36 @@ class CategoriesController extends Controller
     {
         $request->validate(
             [
-                'name' => 'required|min:3|max:255',
+                'name' => [
+                    'required',
+                    'min:3',
+                    'max:255',
+                    'unique:categories,name,' . $id,
+                    new Filter([
+                        'admin',
+                        'administrator',
+                        'root',
+                        'superuser',
+                        'superadmin',
+                        'laravel',
+                        'php'
+                    ]),
+                ],
                 'parent_id' => 'nullable|int|exists:categories,id',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'status' => 'required|in:active,inactive',
+                'status' => 'required|in:active,archived',
             ]
         );
 
         $category = Category::findOrFail($id);
         $old_image = $category->image;
         $data = $request->except('image');
-        $data['image'] = $this->uploadImage($request);
+        $new_image = $this->uploadImage($request);
+        if ($new_image) {
+            $data['image'] = $new_image;
+        }
         $category->update($data);
-        if ($old_image && isset($data['image'])) {
+        if ($old_image && isset($new_image)) {
             Storage::disk('public')->delete($old_image);
         }
         return redirect()->route('dashboard.categories.index')->with('success', 'Category updated successfully');

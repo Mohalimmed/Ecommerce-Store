@@ -1,12 +1,5 @@
 <div class="form-group">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" name="name" id="name" value="{{ old('name', $category->name ?? '') }}"
-        class="form-control @error('name')
-        is-invalid
-    @enderror">
-    @error('name')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+    <x-form.input name="name" label="Category Name" type="text" :value="$category->name ?? ''" />
 </div>
 <div class="form-group">
     <label for="parent_id" class="form-label">Parent Category</label>
@@ -21,29 +14,17 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="" class="form-label">Description</label>
-    <textarea type="text" name="description" class="form-control">{{ old('description', $category->description ?? '') }}</textarea>
-    @error('description')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+    <x-form.textarea class="form-control" name="description" label="Description" :value="$category->description ?? ''" />
 </div>
 <div class="form-group">
-    <label for="" class="form-label">Image</label>
-    <input type="file" name="image" class="form-control" accept="image/*">
+    <x-form.input name="image" label="Image" type="file" accept="image/*" />
     @if (isset($category->image))
         <img src="{{ asset('storage/' . $category->image) }}" alt="" height="50">
     @endif
 </div>
 <div class="form-group  mb-4">
     <label for="" class="form-label">Status</label>
-    <div class="form-check">
-        <input type="radio" name="status" value="active" class="form-check-input" @checked(old('status', $category->status ?? '') == 'active')>
-        <label class="form-check-label">Active</label>
-    </div>
-    <div class="form-check">
-        <input type="radio" name="status" value="archived" class="form-check-input">
-        <label class="form-check-label" @checked(old('status', $category->status ?? '') == 'archived')>Archived</label>
-    </div>
+    <x-form.radio name="status" :options="['active' => 'Active', 'archived' => 'Archived']" :checked="$category->status ?? ''" />
     @error('status')
         <div class="text-danger">{{ $message }}</div>
     @enderror

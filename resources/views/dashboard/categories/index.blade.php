@@ -16,11 +16,9 @@
             <div class="mb-4">
                 <a href="{{ route('dashboard.categories.create') }}" class="btn btn-outline-primary">create</a>
             </div>
-            @if (session()->has('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+
+            <x-alert />
+
             <table class="table table-striped table-bordered table-hover" id="categories-table">
                 <thead>
                     <tr>
