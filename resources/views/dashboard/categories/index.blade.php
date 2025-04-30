@@ -24,6 +24,7 @@
             <table class="table table-striped table-bordered table-hover" id="categories-table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Parent</th>
@@ -34,6 +35,8 @@
                 <tbody>
                     @forelse ($categories as $category)
                         <tr>
+                            <td> <img src="{{ asset("storage/$category->image") }}" alt="" height="50">
+                            </td>
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->parent_id }}</td>

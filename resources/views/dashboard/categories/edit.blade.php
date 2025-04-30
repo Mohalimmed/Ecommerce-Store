@@ -15,45 +15,16 @@
 
         <div class="container-fluid">
 
-            <form action="{{ route('dashboard.categories.update', $category->id) }}" method="POST">
+            <form action="{{ route('dashboard.categories.update', $category->id) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('put')
-                <div class="form-group">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" id="name" value="{{ $category->name }}" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="parent_id" class="form-label">Parent Category</label>
-                    <select name="parent_id" id="parent_id" class="form-control">
-                        <option value="">Primary Category</option>
-                        @foreach ($parents as $parent)
-                            <option value="{{ $parent->id }}" @selected($category->parent_id == $parent->id)>{{ $parent->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="" class="form-label">Description</label>
-                    <textarea type="text" name="description" class="form-control">{{ $category->description }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="" class="form-label">Image</label>
-                    <input type="file" name="image" class="form-control">
-                </div>
-                <div class="form-group  mb-4">
-                    <label for="" class="form-label">Status</label>
-                    <div class="form-check">
-                        <input type="radio" name="status" value="active" class="form-check-input"
-                            @checked($category->status == 'active')>
-                        <label class="form-check-label">Active</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" name="status" value="archived" class="form-check-input">
-                        <label class="form-check-label" @checked($category->status == 'archived')>Archived</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
+
+
+                @include('dashboard.categories._form', [
+                    'button' => 'Update',
+                    'category' => $category,
+                ])
             </form>
 
         </div>
