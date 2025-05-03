@@ -18,13 +18,24 @@
             </div>
 
             <x-alert />
+            <form action="{{ URL::current() }}" method="get" class="d-flex justify-content-between mb-4">
 
+                <x-form.input name="search" placeholder="Name" class="mx-2" :value="request('search')" />
+
+                <select name="status" class="form-control mx-2">
+                    <option value="">All</option>
+                    <option value="active" @selected(request('status') == 'active')>Active</option>
+                    <option value="archived"@selected(request('status') == 'archived')>Archived</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
             <table class="table table-striped table-bordered table-hover" id="categories-table">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Parent</th>
                         <th>Created At</th>
                         <th colspan="2"></th>
@@ -37,8 +48,9 @@
                             </td>
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
-                            <td>{{ $category->parent_id }}</td>
-                            <td>{{ $category->created_at }}</td>
+                            <td>{{ $category->status }}</td>
+                            <td>{{ $category->parents_name }}</td>
+                            <td>{{ $category->created_at->format('d M Y') }}</td>
                             <td class="text-center">
                                 <a href="{{ route('dashboard.categories.edit', $category->id) }}"
                                     class="btn btn-primary">Edit</a>
@@ -58,8 +70,10 @@
                 </tbody>
 
             </table>
+            <div class="d-flex justify-content-center mt-4">
+                {{ $categories->withQueryString()->links() }}
+            </div>
+            <!-- /.container-fluid -->
         </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!--end::App Content-->
-@endsection
+        <!--end::App Content-->
+    @endsection

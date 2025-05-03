@@ -32,7 +32,9 @@
 
 
             <!--begin::Sidebar Wrapper-->
-            @include('layouts.partials.nav')
+            {{-- @include('layouts.partials.nav') --}}
+            <x-nav />
+
             <!--end::Sidebar Wrapper-->
 
 

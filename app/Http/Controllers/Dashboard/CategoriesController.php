@@ -15,7 +15,12 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $request = request();
+
+        $categories = Category::leftJoin('categories as parents', 'parents.id', '=', 'categories.parent_id')
+            ->select('categories.*', 'parents.name as parents_name')
+            ->orderBy('categories.name')
+            ->filter($request->query())->paginate();
         return view('dashboard.categories.index', compact('categories'));
     }
 
