@@ -17,7 +17,7 @@ return [
     [
         'name' => 'Products',
         'icon' => 'bi bi-circle text-white nav-icon',
-        'route' => 'dashboard.dashboard',
+        'route' => 'dashboard.products.index',
         'active' => 'dashboard.products.*',
     ]
 ];

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a349383c5500fe749471b3bfb83df832",
+    "content-hash": "8f4cd40ef53738c6781854ab7e80f1ed",
     "packages": [
         {
             "name": "brick/math",
@@ -5974,6 +5974,57 @@
                 "source": "https://github.com/laravel/sail"
             },
             "time": "2025-04-22T13:39:39+00:00"
+        },
+        {
+            "name": "mbezhanov/faker-provider-collection",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mbezhanov/faker-provider-collection.git",
+                "reference": "f6e903c38aa18680fc6e80b6965fc6df40b1aa1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mbezhanov/faker-provider-collection/zipball/f6e903c38aa18680fc6e80b6965fc6df40b1aa1e",
+                "reference": "f6e903c38aa18680fc6e80b6965fc6df40b1aa1e",
+                "shasum": ""
+            },
+            "require": {
+                "fakerphp/faker": "^1.13",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "php-mock/php-mock": "^2.3",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bezhanov\\Faker\\": "src/Faker"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marin Bezhanov",
+                    "email": "marin.bezhanov@gmail.com",
+                    "homepage": "http://marinbezhanov.com"
+                }
+            ],
+            "description": "A collection of custom providers for the Faker library",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/mbezhanov/faker-provider-collection/issues",
+                "source": "https://github.com/mbezhanov/faker-provider-collection/tree/2.0.2"
+            },
+            "time": "2023-12-26T14:31:52+00:00"
         },
         {
             "name": "mockery/mockery",
