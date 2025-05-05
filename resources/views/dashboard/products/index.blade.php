@@ -51,8 +51,8 @@
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->status }}</td>
-                            <td>{{ $product->category_id }}</td>
-                            <td>{{ $product->store_id }}</td>
+                            <td>{{ $product->category->name }}</td>
+                            <td>{{ $product->store->name }}</td>
                             <td>{{ $product->created_at->format('d M Y') }}</td>
                             <td class="text-center">
                                 <a href="{{ route('dashboard.products.edit', $product->id) }}"

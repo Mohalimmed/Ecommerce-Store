@@ -30,7 +30,7 @@
                 </select>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </form>
-            <table class="table table-striped table-bordered table-hover" id="categories-table">
+            <table class="table table-striped table-bordered table-hover text-center" id="categories-table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -38,6 +38,7 @@
                         <th>Name</th>
                         <th>Status</th>
                         <th>Parent</th>
+                        <th>Products Count</th>
                         <th>Created At</th>
                         <th colspan="2"></th>
                     </tr>
@@ -48,9 +49,11 @@
                             <td> <img src="{{ asset("storage/$category->image") }}" alt="" height="50">
                             </td>
                             <td>{{ $category->id }}</td>
-                            <td>{{ $category->name }}</td>
+                            <td><a href="{{ route('dashboard.categories.show', $category->id) }}">{{ $category->name }}</a>
+                            </td>
                             <td>{{ $category->status }}</td>
-                            <td>{{ $category->parents_name }}</td>
+                            <td>{{ $category->parent->name }}</td>
+                            <td>{{ $category->products_count }}</td>
                             <td>{{ $category->created_at->format('d M Y') }}</td>
                             <td class="text-center">
                                 <a href="{{ route('dashboard.categories.edit', $category->id) }}"

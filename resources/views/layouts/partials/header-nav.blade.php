@@ -170,7 +170,7 @@
                             @csrf
                             <button type="submit" class="btn btn-default btn-flat float-end">Sign out</button>
                         </form>
-                        <a href="{{ route('profile.edit') }}" class="btn btn-default btn-flat">Profile</a>
+                        <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-default btn-flat">Profile</a>
                     </li>
                     <!--end::Menu Footer-->
                 </ul>

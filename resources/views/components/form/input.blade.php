@@ -1,6 +1,6 @@
 @props(['name', 'label' => false, 'type' => 'text', 'value' => ''])
 @if ($label)
-    <label for="" class="form-label">{{ $label }}</label>
+    <label for="" class="form-label fw-bold">{{ $label }}</label>
 @endif
 
 <input type={{ $type }} name="{{ $name }}" value="{{ old($name, $value) }}"
