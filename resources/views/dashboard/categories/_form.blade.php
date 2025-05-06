@@ -23,8 +23,7 @@
     @endif
 </div>
 <div class="form-group  mb-4">
-    <label for="" class="form-label">Status</label>
-    <x-form.radio name="status" :options="['active' => 'Active', 'archived' => 'Archived']" :checked="$category->status ?? ''" />
+    <x-form.radio name="status" label="Status" :options="['active' => 'Active', 'archived' => 'Archived']" :checked="$category->status ?? ''" />
     @error('status')
         <div class="text-danger">{{ $message }}</div>
     @enderror

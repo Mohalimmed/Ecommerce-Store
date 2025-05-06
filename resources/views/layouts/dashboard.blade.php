@@ -3,6 +3,7 @@
 <!--begin::Head-->
 
 @include('layouts.partials.header')
+@stack('styles')
 <!--end::Head-->
 <!--begin::Body-->
 
@@ -77,6 +78,7 @@
     <!--end::App Wrapper-->
     <!--begin::Script-->
     @include('layouts.partials.scripts')
+    @stack('scripts')
     <!--end::Script-->
 </body>
 <!--end::Body-->

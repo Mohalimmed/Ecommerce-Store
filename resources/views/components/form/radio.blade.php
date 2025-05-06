@@ -1,4 +1,4 @@
-@props(['name', 'label', 'options', 'checked' => false])
+@props(['name', 'label' => '', 'options', 'checked' => false])
 @if ($label)
     <label for="" class="form-label fw-bold">{{ $label }}</label>
 @endif
