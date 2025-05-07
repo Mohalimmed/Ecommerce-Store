@@ -101,8 +101,6 @@ camelCase
         if (!$this->compare_price) {
             return 0;
         }
-
-
         return 100 - (100 * $this->price / $this->compare_price);
     }
 }

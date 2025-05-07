@@ -4,12 +4,13 @@ use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\CheckUserType;
 use Illuminate\Support\Facades\Route;
 
 
 
 Route::group([
-    'middleware' => ['auth'],
+    'middleware' => ['auth', 'type.auth:admin,super-admin'],
     'as' => 'dashboard.',
     'prefix' => 'dashboard',
 ], function () {
