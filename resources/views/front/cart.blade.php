@@ -48,9 +48,9 @@
                     </div>
                 </div>
                 <!-- End Cart List Title -->
-                @foreach ($cart->get() as $item)
+                @forelse ($cart->get() as $item)
                     <!-- Cart Single List list -->
-                    <div class="cart-single-list">
+                    <div class="cart-single-list" id="{{ $item->id }}">
                         <div class="row align-items-center">
                             <div class="col-lg-1 col-md-1 col-12">
                                 <a href="{{ route('prodcuts.show', $item->product->slug) }}">
@@ -66,7 +66,8 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
                                 <div class="count-input">
-                                    <input class="form-control" value="{{ $item->quantity }}">
+                                    <input class="form-control item-quantity" data-id="{{ $item->id }}"
+                                        value="{{ $item->quantity }}">
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
@@ -76,12 +77,20 @@
                                 <p>$0</p>
                             </div>
                             <div class="col-lg-1 col-md-2 col-12">
-                                <a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
+                                <a href="javascript:void(0)" data-id="{{ $item->id }}" class="remove-item"><i
+                                        class="lni lni-close"></i></a>
                             </div>
+
                         </div>
                     </div>
+                @empty
+                    <div class="text-center mt-5 mb-5">
+
+                        <p>No product Found</p>
+                        {{-- </div> --}}
+                    </div>
                     <!-- End Single List list -->
-                @endforeach
+                @endforelse
 
             </div>
             <div class="row">
@@ -104,7 +113,8 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>Cart Subtotal<span>{{ Currency::format(round($cart->total())) }}</span></li>
+                                        <li>Cart Subtotal<span>{{ Currency::format(round($cart->total())) }}</span>
+                                        </li>
                                         <li>Shipping<span>Free</span></li>
                                         <li>You Save<span>$29.00</span></li>
                                         <li class="last">You Pay<span>$2531.00</span></li>
@@ -123,5 +133,13 @@
         </div>
     </div>
     <!--/ End Shopping Cart -->
+    @push('scripts')
+        <script>
+            const csrf_token = '{{ csrf_token() }}';
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="{{ asset('assets/js/cart.js') }}"></script>
+    @endpush
+
 
 </x-front-layout>

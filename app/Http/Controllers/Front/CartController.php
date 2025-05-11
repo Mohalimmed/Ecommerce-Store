@@ -42,11 +42,11 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,)
+    public function store(Request $request)
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'nullable|integer|min:1',
+            'quantity' => 'nullable',
         ]);
         $product = Product::find($request->post('product_id'));
         $this->cart->add($product, $request->quantity);
@@ -72,21 +72,22 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CartRepository $repository)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'nullable|integer|min:1',
+            'quantity' => 'required|integer|min:1',
         ]);
-        $product = Product::find($request->post('product_id'));
-        $repository->update($product, $request->quantity);
+        $this->cart->update($id, $request->post('quantity'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CartRepository $repository, string $id)
+    public function destroy($id)
     {
-        $repository->delete($id);
+        $this->cart->delete($id);
+        return [
+            'message' => 'Product removed from cart successfully.',
+        ];
     }
 }
